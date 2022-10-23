@@ -1,10 +1,15 @@
-import fs from '@mongez/fs';
-import { rootPath } from '@mongez/node';
+import { rootPath } from "@mongez/node";
+import ComponentGenerator, { StyleMode } from "./generators/ComponentGenerator";
 
-// get the absolute path to the root of the project for the given path
-const packageJsonPath = rootPath('package.json');
+const componentGenerator = new ComponentGenerator("home");
 
-// get the json contents of the file in object format 
-const packageJsonContent = fs.getJson(packageJsonPath);
-
-console.log(packageJsonContent);
+componentGenerator
+  .saveTo(rootPath("build/components"))
+  .styleMode(StyleMode.all)
+  .withStoryBook(true)
+  .withTypes(true)
+  .withTests(true)
+  .withDefaultProps({
+    name: "Hasan",
+  })
+  .generate();
